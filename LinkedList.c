@@ -5,22 +5,17 @@ struct node
 {
     int data;
     struct node *next;
-}
-
-    * first,
-    *last = NULL;
-// *last = NULL;
-
+} * first, *last = NULL;
+//
 void create(int A[], int n)
 {
-    int i;
     struct node *t;
     first = (struct node *)malloc(sizeof(struct node));
     first->data = A[0];
     first->next = NULL;
     last = first;
 
-    for (i = 1; i < n; i++)
+    for (int i = 1; i < n; i++)
     {
         t = (struct node *)malloc(sizeof(struct node));
         t->data = A[i];
@@ -165,17 +160,103 @@ void sortedinsert(struct node *p, int x)
     }
 }
 
+void deleteDuplicatesOfValue(struct node *p, int value)
+{
+    struct node *q;
+    if (p->data == value)
+    {
+        first = p->next;
+    }
+    q = p->next;
+    while (q != NULL)
+    {
+        if (q->data == value)
+        {
+            p->next = q->next;
+        }
+        else
+        {
+            p = q;
+        }
+        q = q->next;
+    }
+}
+
+void reversePointersLL(struct node *p)
+{
+    struct node *q = NULL, *r = NULL;
+    while (p != NULL)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    first = q;
+}
+
+void reverseArrLL(struct node *p)
+{
+    struct node *q = p;
+    int *arr, i = 0;
+    arr = (int *)malloc(sizeof(int) * count(p));
+    while (q != 0)
+    {
+        arr[i] = q->data;
+        q = q->next;
+        i++;
+    };
+    i--;
+    q = p;
+    while (q != 0)
+    {
+        q->data = arr[i];
+        q = q->next;
+        i--;
+    }
+}
+
+void reverseRecursionLL(struct node *q, struct node *p)
+{
+    if (p)
+    {
+        reverseRecursionLL(p, p->next);
+        p->next = q;
+    }
+    else
+    {
+        first = q;
+    }
+}
+
+void isloop(struct node *p)
+{
+    struct node *a, *b;
+    a = b = p;
+    do
+    {
+        a = a->next;
+        b = b->next;
+        b = b ? b->next : b;
+    } while (a && b && a != b);
+
+    if (a == b)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int main()
 {
     struct node *temp;
-    int A[] = {3, 5, 7, 10, 15, 20};
+    int A[] = {34, 5, 2, 8, 15, 7};
     create(A, 6);
-    // printf("%d\n", count(first));
-    // temp = Lsearch(first, 17);
-    // printf("%d", RLsearch(first, 12));
-    // insert(first, 5, 1000);
-    insertLast(1000);
-    insertLast(555);
-    sortedinsert(first, 12);
+    insert(first, 5, 1000);
+    // reverseArrLL(first);
+    reversePointersLL(first);
     display(first);
 }
