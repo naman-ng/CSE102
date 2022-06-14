@@ -32,28 +32,3 @@ void quickSort(int arr[], int l, int h)
         quickSort(arr, pi + 1, h);
     }
 }
-
-void printArray(int array[], int size)
-{
-    for (int i = 0; i < size; ++i)
-    {
-        printf("%d  ", array[i]);
-    }
-    printf("\n");
-}
-
-int main()
-{
-    int n, k;
-    scanf("%d", &n);
-    int array[n];
-    for (int i = 0; i < n; i++)
-    {
-        scanf("%d", &k);
-        array[i] = k;
-    }
-    quickSort(array, 0, n - 1);
-
-    printf("Sorted array in ascending order: \n");
-    printArray(array, n);
-}
